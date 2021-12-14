@@ -1,0 +1,59 @@
+
+<div class="card-top container-fluid">
+    <div class="container d-flex">
+        <div class="item">
+            <a class="first" (click)="filter('')">
+                <img src="assets/img/download.png" alt="aa">
+                <h6 style="margin-left: 30px; text-align: center;">All Apps</h6>
+            </a>
+        </div>
+        <div class="item">
+            <a (click)="filter('Analytics and AI')">
+                <img src="assets/img/download.png" alt="">
+                <h6>Analytics and AI</h6>
+            </a>
+        </div>
+        <div class="item">
+            <a (click)="filter('Business Collaboration')">
+                <img src="assets/img/download.png" alt="">
+                <h6>Business Collaboration</h6>
+
+            </a>
+        </div>
+        <div class="item">
+            <a (click)="filter('Cash Managemen')">
+                <img src="assets/img/download.png" alt="">
+                <h6>Cash Management</h6>
+
+            </a>
+        </div>
+        <div class="item">
+            <a (click)="filter('Financial Management')">
+                <img src="assets/img/download.png" alt="">
+                <h6>Financial Management</h6>
+            </a>
+        </div>
+        <div class="item">
+            <a (click)="filter('Trading and Risk')">
+                <img src="assets/img/download.png" alt="">
+                <h6>Trading and Risk</h6>
+
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <ng-container *ngFor="let item of filterCategory | filter:searchKey:'title'">
+            <div class="card col-md-3">
+                <img style="align-self: center; margin: 20px;" src="assets/img/download.png" alt="">
+                <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{item.title}}</h5>
+                <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{item.description}}</p>
+                <p><strong>Price:</strong><span></span>&#x20B9;{{item.price}}</p>
+                <button class="btn btn-primary" (click)=addtocart(item)>Add to cart</button>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+.form-control{
+    position: absolute;
+    right: 30%;
+    border-radius: 5px;
+    width: 50%;
+    margin-left: 30px;
+    margin-top: 5px;
+    margin-top: 15px;
+    
+}
+
+.search-icon{
+    position: absolute;
+    z-index: 10;
+    right: 30%;
+    top: 25px;
+    color: black;
+    margin-top: 10px;
+}
+
