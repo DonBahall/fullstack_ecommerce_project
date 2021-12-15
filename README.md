@@ -1,4 +1,6 @@
 # mini_project
+# Steps to run backend
+
 First run the springboot project named as    
 Add products to the products page using /api/add/product.
 Only one product can be added at a time.
@@ -13,6 +15,7 @@ Add the user as:
     "name": "Gyan",
     "phone": "432743243"
     }
+# Steps to run frontend
 
 Run the angular application in terminal using ng serve.
 Open the output port in browser, the home page will be visible.
@@ -23,4 +26,4 @@ To checkout the products click on Checkout. To shop more go back.
 Click on Ekart on the header to redirect to the products page.
 The user name button is to display the Information about the user.//currently not working
 Logout button is available to logout.//currently not working(plese remove the token from local storage to visualize the result)
-# Code
+Remarks-Install node modules using npm install.
