@@ -1,4 +1,18 @@
 # mini_project
+First run the springboot project named as    
+Add products to the products page using /api/add/product.
+Only one product can be added at a time.
+Then register for user using /register 
+Add the user as:
+    {
+    "username": "gyan",
+    "password": "123456789",
+    "email": "gyan@gmail.com",
+    "address":"Jeypore",
+    "name": "Gyan",
+    "phone": "432743243"
+    }
+
 Run the angular application in terminal using ng serve.
 Open the output port in browser, the home page will be visible.
 Login to continue using vadil user id and password, by clicking the Login button.
