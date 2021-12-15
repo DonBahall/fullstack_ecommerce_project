@@ -22,4 +22,4 @@ Remove each product by clicking the small delete icon, empty the whole cart usin
 To checkout the products click on Checkout. To shop more go back.
 Click on Ekart on the header to redirect to the products page.
 The user name button is to display the Information about the user.//currently not working
-Logout button is available to logout.//currently not working
+Logout button is available to logout.//currently not working(plese remove the token from local storage to visualize the result)
