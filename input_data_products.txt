@@ -1,0 +1,111 @@
+[
+  {
+    "id": 1,
+    "title": "Plan Performance",
+    "price": 109.95,
+    "description": "Increase throughput at your bulk handling sites. Bring more efficiency into receival, transfer and loading function while exacting cargo requirements",
+    "category": "Analytics and AI",
+    "image": "image link"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Inventory Analytics",
+    "price": 252.37,
+    "description": "Improve forward planning with visibility into projected inventory and plant utilization across the business. Evaluate inventory by region, by product and analyze cost of goods versus market prices for better buying and selling decisions.",
+    "category": "Analytics and AI",
+    "image": "image link"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Farmer Connect",
+    "price": 189.65,
+    "description": "Manage critical farm origination processes at one place. Engage with multiple farmers, negotiate and manage payments all on platform. Simultaneously. Instantly. Say goodbye to antiquated paperwork and incessant calls from farm sales.",
+    "category": "Business Collaboration",
+    "image": "image link"
+    }
+  },
+  {
+    "id": 4,
+    "title": "Customer Connect",
+    "price": 122.3,
+    "description": "Connect real time with business partners or counterparties and make best possible deals. Do more by managing queries, contracts, invoicing, ticketing and everything else in between, in a fraction of time it took earlier.",
+    "category": "Business Collaboration",
+    "image": "image link"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Cash Management",
+    "price": 22.3,
+    "description": "Consolidates bank statements from disparate sources in one standard format and helps the corporates to reconcile their projected AR/AP vs the actuals in the bank statements.Get insight into cash position on all your bank accounts across all the entities and plan & manage your payables and receivables efficiently. This will also help you to make more informed decisions and take necessary mitigation measures.",
+    "category": "Financial Management",
+    "image": "image link"
+    }
+  },
+  {
+    "id": 6,
+    "title": "Supply Chain Finance",
+    "price": 109.95,
+    "description": "Extend the early payments to your suppliers and earn the benefit from payables.Extend the financing feature to all vendors, small alike to include them in the growth path.Manage the reverse factoring agreements and improve the relations with business partners.",
+    "category": "Financial Management",
+    "image": "image link"
+    }
+  },
+  {
+    "id": 7,
+    "title": "Position and Mark to Market",
+    "price": 22.3,
+    "description": "Spot opportunities, mitigate risks and arrive at a single point of truth of your overall exposure. Stay up-to-date on position exposure for physicals, derivatives and FX trades.",
+    "category": "Trading and Risk",
+    "image": "image link"
+    }
+  },
+  {
+    "id": 8,
+    "title": "Procurement Analysis",
+    "price": 109.95,
+    "description": "Track, monitor, analyze, and manage all enterprise-wide spends including budgeted, actual, and projected. Simulate projected spend and perform detailed spend attribution analysis. View coverage and price risk and perform market simulations to evaluate the resulting impact on coverage. Get instant alerts if coverage breaches corporate governance policies.",
+    "category": "Trading and Risk",
+    "image": "image link"
+    }
+  },
+  {
+    "id": 9,
+    "title": "VaR",
+    "price": 22.3,
+    "description": "Consolidate information from disparate sources, including C/ETRM, spreadsheets, and market data providers. Get insight into market risk and make more informed decisions and take necessary mitigation measures.",
+    "category": "Trading and Risk",
+    "image": "image link"
+    }
+  },
+  {
+    "id": 10,
+    "title": "Risk and Monitoring",
+    "price": 22.3,
+    "description": "Define risk limit policies, analyze global risk across multiple portfolios and books. Track limit breaches and utilization",
+    "category": "Trading and Risk",
+    "image": "image link"
+    }
+  },
+  {
+    "id": 11,
+    "title": "ETRM",
+    "price": 109.95,
+    "description": "Maximize profits in trading and empower risk management by configuring our prebuilt apps to power the right workflows for your growth.",
+    "category": "Trading and Risk",
+    "image": "image link"
+    }
+  },
+  {
+    "id": 12,
+    "title": "Derivative Trades",
+    "price": 22.3,
+    "description": "Get end-to-end management of Exchange Traded and OTC derivative contracts within one system, for hedging and speculation.",
+    "category": "Trading and Risk",
+    "image": "image link"
+    }
+  }
+
+]
