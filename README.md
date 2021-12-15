@@ -2,6 +2,7 @@
 First run the springboot project named as    
 Add products to the products page using /api/add/product.
 Only one product can be added at a time.
+Add the products from input_data_products file attached.
 Then register for user using /register 
 Add the user as:
     {
