@@ -3,16 +3,25 @@ package com.project.ecommerce.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.ecommerce.entity.cart.CartItem;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(unique = true, nullable = false, length = 35)
     private String username;
@@ -36,93 +45,6 @@ public class User {
     @OneToMany(mappedBy = "pk.user", cascade = CascadeType.ALL)
     private List<CartItem> cartItems = new ArrayList<>();
 
-    public User () {
-    }
-
-    public User (String username, String password, String email, String name, String address, String phone) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.cartItems = new ArrayList<>();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public List<CartItem> getCartItems() {
-        return cartItems;
-    }
-
-    public void setCartItems(List<CartItem> cartItems) {
-        this.cartItems = cartItems;
-    }
-
-    @Transient
-    public double getCartTotal () {
-        double sum = 0;
-
-        for (CartItem item : cartItems) {
-            sum += item.getTotalPrice();
-        }
-        return sum;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -135,5 +57,14 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", cartItems=" + cartItems +
                 '}';
+    }
+
+    public User(String username, String phone, String name, String password, String email, String address) {
+        this.username = username;
+        this.phone = phone;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.address = address;
     }
 }

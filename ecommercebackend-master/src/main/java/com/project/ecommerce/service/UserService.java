@@ -21,9 +21,6 @@ public class UserService {
         return repo.findAll();
     }
 
-    @Autowired
-    private PasswordEncoder bcryptEncoder;
-
     public User getUser (Long id) {
         return repo.findById(id).orElseThrow(() ->
                 new UserNotFoundException("User by id " + id + " was not found."));

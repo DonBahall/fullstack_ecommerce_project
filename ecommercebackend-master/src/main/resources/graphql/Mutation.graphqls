@@ -1,0 +1,24 @@
+type Mutation {
+    addProduct(product: AddProductInput!): Product!
+    updateProduct(id: ID!, product: UpdateProductInput!): Product!
+    deleteProduct(id: ID!): Boolean!
+}
+input AddProductInput {
+    id: Int
+    title: String!
+    description: String!
+    price: Int!
+    category: String!
+    addedOn: String
+    image: String
+}
+
+input UpdateProductInput {
+    title: String
+    description: String
+    price: Float
+    category: String
+    addedOn: String
+    image: String
+}
+

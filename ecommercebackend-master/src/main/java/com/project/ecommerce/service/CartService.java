@@ -6,7 +6,7 @@ import com.project.ecommerce.entity.cart.CartItem;
 import com.project.ecommerce.repository.CartRepository;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.List;
 
 @Service
