@@ -48,12 +48,12 @@ public class UCPController {
         return ResponseEntity.ok(tokenResponse);
     }
 
-    @GetMapping("/api/v1/getAlUsers")
+    @GetMapping("/api/v1/users")
     public ResponseEntity<List<User>> getUsers () {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/api/v1/getUsers/{id}")
+    @GetMapping("/api/v1/users/{id}")
     public ResponseEntity<User> getUser (@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
@@ -79,17 +79,17 @@ public class UCPController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/api/v1/getAllProducts")
+    @GetMapping("/api/v1/products")
     public ResponseEntity<List<Product>> getProducts () {
         return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
     }
 
-    @GetMapping("/api/v1/getProducts/{id}")
+    @GetMapping("/api/v1/products/{id}")
     public ResponseEntity<Product> getProduct (@PathVariable("id") Long id) {
         return new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
     }
 
-    @PostMapping("/api/v1/addProduct")
+    @PostMapping("/api/v1/products")
     public ResponseEntity<Product> addProduct (@RequestBody Product product) {
         return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
     }
