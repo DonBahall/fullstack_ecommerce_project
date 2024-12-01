@@ -26,7 +26,6 @@ import java.util.Map;
 public class UCPController {
     private final UserService userService;
     private final ProductService productService;
-    private final CartService cartItemService;
 
     @Autowired
     private JwtUserDetailsService jwtUserDetailsService;
@@ -34,14 +33,13 @@ public class UCPController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    public UCPController(UserService userService, ProductService productService, CartService cartItemService) {
+    public UCPController(UserService userService, ProductService productService) {
         this.userService = userService;
         this.productService = productService;
-        this.cartItemService = cartItemService;
     }
 
     @PostMapping("/create-token")
-    public ResponseEntity<?> createToken (@RequestBody Map<String, String> user) throws Exception {
+    public ResponseEntity<?> createToken (@RequestBody Map<String, String> user) {
         Map<String, Object> tokenResponse = new HashMap<>();
         final UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(user.get("username"));
         final String token = jwtUtil.generateToken(userDetails);
@@ -50,17 +48,17 @@ public class UCPController {
         return ResponseEntity.ok(tokenResponse);
     }
 
-    @GetMapping("/getAll/users")
+    @GetMapping("/api/v1/getAlUsers")
     public ResponseEntity<List<User>> getUsers () {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/get/users/{id}")
+    @GetMapping("/api/v1/getUsers/{id}")
     public ResponseEntity<User> getUser (@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/api/v1/users/{id}")
     public ResponseEntity<User> updateUser (@PathVariable("id") Long id, @RequestBody Map<String, Object> user) {
         User newUser = new User(
                 (String) user.get("username"),
@@ -74,88 +72,37 @@ public class UCPController {
         return new ResponseEntity<>(userService.updateUser(id, newUser), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{id}/cart")
-    public ResponseEntity<List<CartItem>> getUserCart (@PathVariable("id") Long id) {
-        System.out.println(userService.getUser(id).getCartItems().size());
-        return new ResponseEntity<>(userService.getUser(id).getCartItems(), HttpStatus.OK);
-    }
-
-    @PostMapping("/users/{id}/cart/add/{productId}")
-    public ResponseEntity<User> addToUserCart (@PathVariable("id") Long id,
-                                               @PathVariable("productId") Long productId) {
-        User user = userService.getUser(id);
-        Product product = productService.getProduct(productId);
-
-        CartItem cartItem = new CartItem(user, product, 1);
-        cartItemService.addCartItem(cartItem);
-
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.CREATED);
-    }
-
-    @PutMapping("/users/{id}/cart/update/{productId}")
-    public ResponseEntity<User> updateCartItem (@PathVariable("id") Long id,
-                                                @PathVariable("productId") Long productId,
-                                                @RequestBody CartItem cartItem) {
-        User user = userService.getUser(id);
-        Product product = productService.getProduct(productId);
-
-        cartItem.setPk(new CartItemUP(user, product));
-        cartItemService.updateCartItem(cartItem);
-
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/users/{id}/cart/remove/{productId}")
-    public ResponseEntity<User> removeFromUserCart (@PathVariable("id") Long id,
-                                                    @PathVariable("productId") Long productId) {
-        cartItemService.deleteCartItem(id, productId);
-
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
-    }
-
     @Transactional
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/api/v1/users/{id}")
     public ResponseEntity<?> deleteUser (@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/getAll/products")
+    @GetMapping("/api/v1/getAllProducts")
     public ResponseEntity<List<Product>> getProducts () {
         return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
     }
 
-    @GetMapping("/get/products/{id}")
+    @GetMapping("/api/v1/getProducts/{id}")
     public ResponseEntity<Product> getProduct (@PathVariable("id") Long id) {
         return new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
     }
 
-    @PostMapping("/add/product")
+    @PostMapping("/api/v1/addProduct")
     public ResponseEntity<Product> addProduct (@RequestBody Product product) {
         return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
     }
 
-    @PutMapping("/products/{id}")
+    @PutMapping("/api/v1/products/{id}")
     public ResponseEntity<Product> updateProduct (@PathVariable("id") Long id, @RequestBody Product product) {
         return new ResponseEntity<>(productService.updateProduct(id, product), HttpStatus.OK);
     }
 
     @Transactional
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/api/v1/products/{id}")
     public ResponseEntity<?> deleteProduct (@PathVariable("id") Long id) {
         productService.deleteProduct(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/getAll/cart-items")
-    public ResponseEntity<List<CartItem>> getCartItems () {
-        return ResponseEntity.ok(cartItemService.getCartItems());
-    }
-
-    @CrossOrigin
-    @GetMapping("/get/cart-items/{id}/{productId}")
-    public ResponseEntity<CartItem> getCartItem (@PathVariable("id") Long id,
-                                                 @PathVariable("productId") Long productId) {
-        return ResponseEntity.ok(cartItemService.getCartItem(id, productId));
     }
 }
