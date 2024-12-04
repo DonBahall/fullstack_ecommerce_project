@@ -29,8 +29,8 @@ public class GraphQLResolver {
         return productService.addProduct(product);
     }
     @MutationMapping
-    public Product updateProduct(@Argument Product product) {
-        return productService.updateProduct(product.getId(),product);
+    public Product updateProduct(@Argument Long id, @Argument Product product) {
+        return productService.updateProduct(id,product);
     }
     @MutationMapping
     public Boolean deleteProduct(@Argument Long id) {
