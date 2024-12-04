@@ -3,7 +3,8 @@ package com.project.ecommerce;
 import com.project.ecommerce.service.GetProductRequest;
 import com.project.ecommerce.service.ProductResponse;
 import com.project.ecommerce.service.ProductServiceGRPC;
-import com.project.ecommerce.service.ProductServiceGRPCGrpc;
+
+import com.project.ecommerce.service.ProductServiceGrpc;
 import org.springframework.boot.test.context.SpringBootTest;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -49,7 +50,7 @@ class IntegrationTests {
 
     @Test
     public void testGetProduct_Success() {
-        ProductServiceGRPCGrpc.ProductServiceGRPCBlockingStub client = ProductServiceGRPCGrpc.newBlockingStub(channel);
+        ProductServiceGrpc.ProductServiceBlockingStub client = ProductServiceGrpc.newBlockingStub(channel);
 
         GetProductRequest request = GetProductRequest.newBuilder().setId(1L).build();
         ProductResponse response = client.getProduct(request);
