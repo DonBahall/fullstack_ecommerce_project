@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @GrpcService
-public class ProductServiceGRPC extends ProductServiceGRPCGrpc.ProductServiceGRPCImplBase{
+public class ProductServiceGRPC extends ProductServiceGrpc.ProductServiceImplBase{
     List<com.project.ecommerce.entity.Product> products = new ArrayList<>() {{
         add(new com.project.ecommerce.entity.Product(1L, "Laptop", "Gaming laptop", 1200, "Electronics", new Date()));
         add(new com.project.ecommerce.entity.Product(2L, "Headphones", "Noise-cancelling headphones", 200, "Accessories", new Date()));

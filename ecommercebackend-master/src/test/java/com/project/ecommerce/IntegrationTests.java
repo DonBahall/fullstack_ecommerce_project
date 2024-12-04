@@ -27,18 +27,15 @@ class IntegrationTests {
 
     @BeforeEach
     public void setup() throws IOException {
-        // Создаем тестовые данные
         List<com.project.ecommerce.entity.Product> products = new ArrayList<>();
         products.add(new com.project.ecommerce.entity.Product(1L, "Laptop", "Gaming laptop", 1200, "Electronics", new Date()));
         products.add(new com.project.ecommerce.entity.Product(2L, "Headphones", "Noise-cancelling headphones", 200, "Accessories", new Date()));
 
-        // Запускаем сервер gRPC
         server = ServerBuilder.forPort(8080)
                 .addService(new ProductServiceGRPC())
                 .build()
                 .start();
 
-        // Настраиваем клиента gRPC
         channel = ManagedChannelBuilder.forAddress("localhost", 8080)
                 .usePlaintext()
                 .build();
@@ -52,14 +49,11 @@ class IntegrationTests {
 
     @Test
     public void testGetProduct_Success() {
-        // Создаем клиента для вызова сервиса
         ProductServiceGRPCGrpc.ProductServiceGRPCBlockingStub client = ProductServiceGRPCGrpc.newBlockingStub(channel);
 
-        // Отправляем запрос
         GetProductRequest request = GetProductRequest.newBuilder().setId(1L).build();
         ProductResponse response = client.getProduct(request);
 
-        // Проверяем ответ
         assertEquals(1L, response.getProduct().getId());
         assertEquals("Laptop", response.getProduct().getTitle());
     }

@@ -40,7 +40,7 @@ message BooleanResponse{
   bool resp = 1;
 }
 
-service ProductServiceGRPC {
+service ProductService {
   rpc GetProduct (GetProductRequest) returns (ProductResponse);
   rpc AddProduct (AddProductRequest) returns (ProductResponse);
   rpc UpdateProduct (UpdateProductRequest) returns (ProductResponse);
