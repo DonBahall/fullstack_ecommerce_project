@@ -9,5 +9,4 @@ type Product {
     price: Int!
     category: String!
     addedOn: String
-    image: String
 }

@@ -10,7 +10,6 @@ input AddProductInput {
     price: Int!
     category: String!
     addedOn: String
-    image: String
 }
 
 input UpdateProductInput {
@@ -19,6 +18,5 @@ input UpdateProductInput {
     price: Float
     category: String
     addedOn: String
-    image: String
 }
 

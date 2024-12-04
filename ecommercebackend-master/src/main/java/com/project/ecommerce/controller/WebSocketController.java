@@ -10,6 +10,6 @@ public class WebSocketController {
     @MessageMapping("/chat")
     @SendTo("/topic/messages")
     public String processMessage(String message) {
-        return "Server: " + message;
+        return "Application submitted : " + message;
     }
 }
