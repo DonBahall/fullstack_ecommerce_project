@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 
+import java.util.List;
+
 @Controller
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:8081"})
 public class GraphQLResolver {
     @Autowired
     private final ProductService productService;
@@ -23,6 +25,10 @@ public class GraphQLResolver {
     @QueryMapping
     public Product getProduct(@Argument Long id) {
         return productService.getProduct(id);
+    }
+    @QueryMapping
+    public List<Product> getAllProducts() {
+        return productService.getProducts();
     }
     @MutationMapping
     public Product addProduct(@Argument Product product) {

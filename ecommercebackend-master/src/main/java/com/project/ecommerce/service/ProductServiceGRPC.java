@@ -4,6 +4,7 @@ import com.project.ecommerce.exceptions.ProductNotFoundException;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +38,50 @@ public class ProductServiceGRPC extends ProductServiceGrpc.ProductServiceImplBas
                 .build();
 
         responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+    private com.project.ecommerce.entity.Product productToEntity(Product product){
+        return new com.project.ecommerce.entity.Product(product.getId(), product.getTitle(), product.getDescription(),
+                (int) product.getPrice(), product.getCategory(),  Date.from(Instant.now()));
+    }
+
+    @Override
+    public void addProduct(AddProductRequest request, StreamObserver<ProductResponse> responseObserver) {
+        products.add(productToEntity(request.getProduct()));
+
+        ProductResponse response = ProductResponse.newBuilder()
+                .setProduct(request.getProduct())
+                .build();
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+    @Override
+    public void updateProduct(UpdateProductRequest request, StreamObserver<ProductResponse> responseObserver) {
+        com.project.ecommerce.entity.Product responseProduct = products.stream()
+                .filter(product -> product.getId().equals(request.getId()))
+                .findFirst()
+                .orElseThrow(() ->
+                        new ProductNotFoundException("Product by id " + request.getId() + " was not found."));
+
+       responseProduct.setTitle(request.getProduct().getTitle());
+       responseProduct.setDescription(request.getProduct().getDescription());
+       responseProduct.setPrice((int)request.getProduct().getPrice());
+       responseProduct.setCategory(request.getProduct().getCategory());
+
+       ProductResponse response = ProductResponse.newBuilder()
+                .setProduct(request.getProduct())
+                .build();
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void deleteProduct(DeleteProductRequest request, StreamObserver<BooleanResponse> responseObserver) {
+        products.removeIf(product -> product.getId().equals(request.getId()));
+
+        responseObserver.onNext(BooleanResponse.newBuilder().build());
         responseObserver.onCompleted();
     }
 }
