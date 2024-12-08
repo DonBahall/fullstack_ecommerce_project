@@ -12,5 +12,5 @@ public class WebSocketController {
     public String processMessage(String message) {
         return "Application submitted : " + message;
     }
-    
+
 }
