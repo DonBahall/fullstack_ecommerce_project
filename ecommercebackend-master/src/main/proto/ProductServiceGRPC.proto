@@ -31,6 +31,12 @@ message UpdateProductRequest {
   int64 id = 1;
   Product product = 2;
 }
+message GetAllProductsRequest {
+
+}
+message GetAllProductsResponse {
+  repeated Product products = 1;
+}
 
 message DeleteProductRequest {
   int64 id = 1;
@@ -45,4 +51,5 @@ service ProductService {
   rpc AddProduct (AddProductRequest) returns (ProductResponse);
   rpc UpdateProduct (UpdateProductRequest) returns (ProductResponse);
   rpc DeleteProduct (DeleteProductRequest) returns (BooleanResponse);
+  rpc GetAllProducts (GetAllProductsRequest) returns (GetAllProductsResponse);
 }

@@ -6,13 +6,32 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @GrpcService
 @Slf4j
-public class ProductServiceGRPC extends ProductServiceGrpc.ProductServiceImplBase{
+public class ProductServiceGRPC extends ProductServiceGrpcs.ProductServiceImplBase{
     @Autowired
     private ProductService productService;
+
+    @Override
+    public void getAllProducts(GetAllProductsRequest request, StreamObserver<GetAllProductsResponse> responseObserver) {
+        List<com.project.ecommerce.entity.Product> productList = productService.getProducts();
+        List<Product> protobufProducts = productList.stream()
+                .map(ProductService::mapToProtobuf)
+                .collect(Collectors.toList());
+
+        GetAllProductsResponse response = GetAllProductsResponse.newBuilder()
+                .addAllProducts(protobufProducts)
+                .build();
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+
 
     @Override
     public void getProduct(GetProductRequest request, StreamObserver<ProductResponse> responseObserver) {
@@ -70,7 +89,7 @@ public class ProductServiceGRPC extends ProductServiceGrpc.ProductServiceImplBas
         log.info("Delete Product GRPC method called ");
         productService.deleteProduct(request.getId());
 
-        responseObserver.onNext(BooleanResponse.newBuilder().build());
+        responseObserver.onNext(BooleanResponse.newBuilder().setResp(true).build());
         responseObserver.onCompleted();
     }
 }
