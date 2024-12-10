@@ -37,7 +37,7 @@ public class UCPController {
         return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
     }
 
-    @PutMapping("/v1/products/{id}")
+    @PatchMapping("/v1/products/{id}")
     public ResponseEntity<Product> updateProduct (@PathVariable("id") Long id, @RequestBody Product product) {
         log.info("Update Product Rest Api method called on url: /v1/products/{id}" );
         return new ResponseEntity<>(productService.updateProduct(id, product), HttpStatus.OK);

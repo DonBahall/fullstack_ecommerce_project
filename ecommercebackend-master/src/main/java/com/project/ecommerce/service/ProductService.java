@@ -32,15 +32,16 @@ public class ProductService {
 
     public Product updateProduct(Long id, Product product) {
         Product existingProduct = getProduct(id);
-            existingProduct.setTitle(product.getTitle());
-            existingProduct.setDescription(product.getDescription());
-            existingProduct.setCategory(product.getCategory());
-            existingProduct.setPrice(product.getPrice());
-            return existingProduct;
+        if(product.getTitle() != null)   existingProduct.setTitle(product.getTitle());
+        if(product.getDescription() != null)    existingProduct.setDescription(product.getDescription());
+        if(product.getCategory() != null)    existingProduct.setCategory(product.getCategory());
+        if(product.getPrice() != null)    existingProduct.setPrice(product.getPrice());
+        return existingProduct;
     }
 
-    public void deleteProduct(Long id) {
+    public boolean deleteProduct(Long id) {
         Product product = getProduct(id);
         products.remove(product);
+        return true;
     }
 }
