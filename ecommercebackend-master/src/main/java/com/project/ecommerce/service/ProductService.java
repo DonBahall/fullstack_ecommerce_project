@@ -1,8 +1,11 @@
 package com.project.ecommerce.service;
 
+import com.project.ecommerce.entity.Task;
 import com.project.ecommerce.exceptions.ProductNotFoundException;
 import com.project.ecommerce.entity.Product;
+import com.project.ecommerce.repository.TaskRepo;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +19,30 @@ public class ProductService {
         add(new Product(1L, "Laptop", "Gaming laptop", 1200, "Electronics", new Date()));
         add(new Product(2L, "Headphones", "Noise-cancelling headphones", 200, "Accessories", new Date()));
     }};
+    @Autowired
+    private TaskRepo taskRepo;
+
+    public Task getTask(Long id) {
+        return taskRepo.findById(id).orElse(null);
+    }
+
+    public Task addTask(Task task) {
+        return taskRepo.save(task);
+    }
+
+    public Task updateTask(Long id, Task task) {
+        Task task1 = taskRepo.findById(id).orElse(null);
+        if(task1 != null) {
+            task1.setTitle(task.getTitle());
+            task1.setCompleted(task.getCompleted());
+        }
+        return taskRepo.save(task1);
+    }
+
+    public void deleteTask(Long id) {
+        Task task = getTask(id);
+        taskRepo.delete(task);
+    }
 
     public Product getProduct(Long id) {
         return products.stream()
