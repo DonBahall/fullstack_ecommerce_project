@@ -3,9 +3,7 @@ package com.project.ecommerce.service;
 import com.project.ecommerce.entity.Task;
 import com.project.ecommerce.exceptions.ProductNotFoundException;
 import com.project.ecommerce.entity.Product;
-import com.project.ecommerce.repository.TaskRepo;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,33 +17,37 @@ public class ProductService {
         add(new Product(1L, "Laptop", "Gaming laptop", 1200, "Electronics", new Date()));
         add(new Product(2L, "Headphones", "Noise-cancelling headphones", 200, "Accessories", new Date()));
     }};
+    @Getter
+    List<Task> tasks = new ArrayList<>() {{
+        add(new Task(1L, "Learn Vue.js", true));
+        add(new Task(2L, "Build a TODO App", false));
+    }};
 
-    @Autowired
-    private TaskRepo taskRepo;
 
     public Task getTask(Long id) {
-        return taskRepo.findById(id).orElse(null);
-    }
-    public List<Task> getTasks() {
-        return taskRepo.findAll();
+        return tasks.stream()
+                .filter(product -> product.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() ->
+                        new ProductNotFoundException("Product by id " + id + " was not found."));
     }
 
     public Task addTask(Task task) {
-        return taskRepo.save(task);
+        tasks.add(task);
+        return task;
     }
 
     public Task updateTask(Long id, Task task) {
-        Task task1 = taskRepo.findById(id).orElse(null);
-        if(task1 != null) {
-            task1.setTitle(task.getTitle());
-            task1.setCompleted(task.getCompleted());
-        }
-        return taskRepo.save(task1);
+        Task existingTask = getTask(id);
+        if(task.getTitle() != null)   existingTask.setTitle(task.getTitle());
+        if(task.getCompleted() != null)    existingTask.setCompleted(task.getCompleted());
+        return existingTask;
     }
 
-    public void deleteTask(Long id) {
+    public Boolean deleteTask(Long id) {
         Task task = getTask(id);
-        taskRepo.delete(task);
+        tasks.remove(task);
+        return true;
     }
 
     public Product getProduct(Long id) {
