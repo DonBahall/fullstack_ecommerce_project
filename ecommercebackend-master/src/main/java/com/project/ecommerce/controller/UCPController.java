@@ -1,6 +1,6 @@
 package com.project.ecommerce.controller;
 
-import com.project.ecommerce.entity.Product;
+import com.project.ecommerce.entity.Task;
 import com.project.ecommerce.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,34 +19,34 @@ public class UCPController {
         this.productService = productService;
     }
 
-    @GetMapping("/v1/products")
-    public ResponseEntity<List<Product>> getProducts () {
-        log.info("Get All Product Rest Api method called on url: /v1/products" );
-        return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
+    @GetMapping("/v1/tasks")
+    public ResponseEntity<List<Task>> getProducts () {
+        log.info("Get All Task Rest Api method called on url: /v1/products" );
+        return new ResponseEntity<>(productService.getTasks(), HttpStatus.OK);
     }
 
-    @GetMapping("/v1/products/{id}")
-    public ResponseEntity<Product> getProduct (@PathVariable("id") Long id) {
-        log.info("Get Product Rest Api method called on url: /v1/products/{id}" );
-        return new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
+    @GetMapping("/v1/tasks/{id}")
+    public ResponseEntity<Task> getProduct (@PathVariable("id") Long id) {
+        log.info("Get Task Rest Api method called on url: /v1/products/{id}" );
+        return new ResponseEntity<>(productService.getTask(id), HttpStatus.OK);
     }
 
-    @PostMapping("/v1/products")
-    public ResponseEntity<Product> addProduct (@RequestBody Product product) {
-        log.info("Add Product Rest Api method called on url: /v1/products" );
-        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
+    @PostMapping("/v1/tasks")
+    public ResponseEntity<Task> addProduct (@RequestBody Task task) {
+        log.info("Add Task Rest Api method called on url: /v1/products" );
+        return new ResponseEntity<>(productService.addTask(task), HttpStatus.OK);
     }
 
-    @PatchMapping("/v1/products/{id}")
-    public ResponseEntity<Product> updateProduct (@PathVariable("id") Long id, @RequestBody Product product) {
-        log.info("Update Product Rest Api method called on url: /v1/products/{id}" );
-        return new ResponseEntity<>(productService.updateProduct(id, product), HttpStatus.OK);
+    @PatchMapping("/v1/tasks/{id}")
+    public ResponseEntity<Task> updateProduct (@PathVariable("id") Long id, @RequestBody Task task) {
+        log.info("Update Task Rest Api method called on url: /v1/products/{id}" );
+        return new ResponseEntity<>(productService.updateTask(id, task), HttpStatus.OK);
     }
 
-    @DeleteMapping("/v1/products/{id}")
+    @DeleteMapping("/v1/tasks/{id}")
     public ResponseEntity<?> deleteProduct (@PathVariable("id") Long id) {
-        log.info("Delete Product Rest Api method called on url: /v1/products/{id}" );
-        productService.deleteProduct(id);
+        log.info("Delete Task Rest Api method called on url: /v1/products/{id}" );
+        productService.deleteTask(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

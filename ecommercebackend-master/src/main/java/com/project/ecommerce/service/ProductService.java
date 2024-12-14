@@ -19,11 +19,15 @@ public class ProductService {
         add(new Product(1L, "Laptop", "Gaming laptop", 1200, "Electronics", new Date()));
         add(new Product(2L, "Headphones", "Noise-cancelling headphones", 200, "Accessories", new Date()));
     }};
+
     @Autowired
     private TaskRepo taskRepo;
 
     public Task getTask(Long id) {
         return taskRepo.findById(id).orElse(null);
+    }
+    public List<Task> getTasks() {
+        return taskRepo.findAll();
     }
 
     public Task addTask(Task task) {
