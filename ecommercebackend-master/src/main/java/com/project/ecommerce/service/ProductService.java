@@ -44,14 +44,4 @@ public class ProductService {
         products.remove(product);
         return true;
     }
-    public static com.project.ecommerce.service.Product mapToProtobuf(com.project.ecommerce.entity.Product entityProduct) {
-        return com.project.ecommerce.service.Product.newBuilder()
-                .setId(entityProduct.getId())
-                .setTitle(entityProduct.getTitle())
-                .setDescription(entityProduct.getDescription())
-                .setPrice(entityProduct.getPrice())
-                .setCategory(entityProduct.getCategory())
-                .setAddedOn(entityProduct.getAddedOn().toString())
-                .build();
-    }
 }
