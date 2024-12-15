@@ -113,8 +113,8 @@
 				<version>0.6.1</version>
 				<configuration>
 					<pluginId>grpc-java</pluginId>
-					<protocArtifact>com.google.protobuf:protoc:3.6.1:exe:osx-x86_64</protocArtifact>
-					<pluginArtifact>io.grpc:protoc-gen-grpc-java:1.4.0:exe:osx-x86_64</pluginArtifact>
+					<protocArtifact>com.google.protobuf:protoc:3.21.12:exe:${os.detected.classifier}</protocArtifact>
+					<pluginArtifact>io.grpc:protoc-gen-grpc-java:1.53.0:exe:${os.detected.classifier}</pluginArtifact>
 					<protoSourceRoot>${basedir}/src/main/proto</protoSourceRoot>
 				</configuration>
 				<executions>
