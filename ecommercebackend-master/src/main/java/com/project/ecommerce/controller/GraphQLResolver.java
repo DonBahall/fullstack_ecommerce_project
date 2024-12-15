@@ -1,7 +1,7 @@
 package com.project.ecommerce.controller;
 
-import com.project.ecommerce.entity.Product;
-import com.project.ecommerce.service.ProductService;
+import com.project.ecommerce.entity.Task;
+import com.project.ecommerce.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -17,36 +17,36 @@ import java.util.List;
 @Slf4j
 public class GraphQLResolver {
     @Autowired
-    private final ProductService productService;
+    private final TaskService taskservice;
 
-    public GraphQLResolver(ProductService productService) {
-        this.productService = productService;
+    public GraphQLResolver(TaskService taskservice) {
+        this.taskservice = taskservice;
     }
 
     @QueryMapping
-    public Product getProduct(@Argument Long id) {
+    public Task getTask(@Argument Long id) {
         log.info("Get Product Graphql method called ");
-        return productService.getProduct(id);
+        return taskservice.getTask(id);
     }
     @QueryMapping
-    public List<Product> getAllProducts() {
+    public List<Task> getAllTasks() {
         log.info("Get All Products Graphql method called ");
-        return productService.getProducts();
+        return taskservice.getTasks();
     }
     @MutationMapping
-    public Product addProduct(@Argument Product product) {
+    public Task addTask(@Argument Task product) {
         log.info("Add Product Graphql method called ");
-        return productService.addProduct(product);
+        return taskservice.addTask(product);
     }
     @MutationMapping
-    public Product updateProduct(@Argument Long id, @Argument Product product) {
+    public Task updateTask(@Argument Long id, @Argument Task product) {
         log.info("Update Product Graphql method called ");
-        return productService.updateProduct(id,product);
+        return taskservice.updateTask(id,product);
     }
     @MutationMapping
-    public Boolean deleteProduct(@Argument Long id) {
+    public Boolean deleteTask(@Argument Long id) {
         log.info("Delete Product Graphql method called ");
-        productService.deleteProduct(id);
+        taskservice.deleteTask(id);
         return true;
     }
 

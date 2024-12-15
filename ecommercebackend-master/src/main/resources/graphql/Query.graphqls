@@ -1,13 +1,11 @@
 type Query {
-    getProduct(id: Int!): Product
-    getAllProducts: [Product]
+    getTask(id: Int!): Task
+    getAllTasks: [Task]
 }
 
-type Product {
+type Task {
     id: ID!
     title: String!
-    description: String!
-    price: Int!
-    category: String!
-    addedOn: String
+    completed: Boolean!
+    deadline: String
 }

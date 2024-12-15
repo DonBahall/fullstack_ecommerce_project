@@ -1,7 +1,7 @@
 package com.project.ecommerce.service;
 
 import com.project.ecommerce.entity.Task;
-import com.project.ecommerce.exceptions.ProductNotFoundException;
+import com.project.ecommerce.exceptions.TaskNotFoundException;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class TaskService {
                 .filter(product -> product.getId().equals(id))
                 .findFirst()
                 .orElseThrow(() ->
-                        new ProductNotFoundException("Product by id " + id + " was not found."));
+                        new TaskNotFoundException("Product by id " + id + " was not found."));
     }
 
     public Task addTask(Task task) {
@@ -43,5 +43,12 @@ public class TaskService {
         Task task = getTask(id);
         tasks.remove(task);
         return true;
+    }
+    public static com.project.ecommerce.service.Task mapToProtobuf(com.project.ecommerce.entity.Task task) {
+        return com.project.ecommerce.service.Task.newBuilder().setId(task.getId())
+                .setTitle(task.getTitle())
+                .setCompleted(task.getCompleted())
+                .setDeadline(task.getDeadline().toString())
+                .build();
     }
 }

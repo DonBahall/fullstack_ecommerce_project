@@ -1,22 +1,18 @@
 type Mutation {
-    addProduct(product: AddProductInput!): Product!
-    updateProduct(id: ID!, product: UpdateProductInput!): Product!
-    deleteProduct(id: ID!): Boolean!
+    addTask(product: AddTaskInput!): Task!
+    updateTask(id: ID!, product: UpdateTaskInput!): Task!
+    deleteTask(id: ID!): Boolean!
 }
-input AddProductInput {
+input AddTaskInput {
     id: Int
     title: String!
-    description: String!
-    price: Int!
-    category: String!
-    addedOn: String
+    completed: Boolean!
+    deadline: String
 }
 
-input UpdateProductInput {
+input UpdateTaskInput {
     title: String
-    description: String
-    price: Float
-    category: String
-    addedOn: String
+    completed: Boolean!
+    deadline: String
 }
 

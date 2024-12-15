@@ -4,41 +4,39 @@ package net.devh.boot.grpc.example;
 
 option java_multiple_files = true;
 option java_package = "com.project.ecommerce.service";
-option java_outer_classname = "ProductServiceV3";
+option java_outer_classname = "TaskServiceV3";
 
-message Product {
+message Task {
   int64 id = 1;
   string title = 2;
-  string description = 3;
-  double price = 4;
-  string category = 5;
-  string addedOn = 6;
+  bool completed = 3;
+  string deadline = 4;
 }
 
-message GetProductRequest {
+message GetTaskRequest {
   int64 id = 1;
 }
 
-message ProductResponse {
-  Product product = 1;
+message TaskResponse {
+  Task task = 1;
 }
 
-message AddProductRequest {
-  Product product = 1;
+message AddTaskRequest {
+  Task task = 1;
 }
 
-message UpdateProductRequest {
+message UpdateTaskRequest {
   int64 id = 1;
-  Product product = 2;
+  Task task = 2;
 }
-message GetAllProductsRequest {
+message GetAllTasksRequest {
 
 }
-message GetAllProductsResponse {
-  repeated Product products = 1;
+message GetAllTasksResponse {
+  repeated Task tasks = 1;
 }
 
-message DeleteProductRequest {
+message DeleteTaskRequest {
   int64 id = 1;
 }
 
@@ -46,10 +44,10 @@ message BooleanResponse{
   bool resp = 1;
 }
 
-service ProductService {
-  rpc GetProduct (GetProductRequest) returns (ProductResponse);
-  rpc AddProduct (AddProductRequest) returns (ProductResponse);
-  rpc UpdateProduct (UpdateProductRequest) returns (ProductResponse);
-  rpc DeleteProduct (DeleteProductRequest) returns (BooleanResponse);
-  rpc GetAllProducts (GetAllProductsRequest) returns (GetAllProductsResponse);
+service TaskService {
+  rpc GetTask (GetTaskRequest) returns (TaskResponse);
+  rpc AddTask (AddTaskRequest) returns (TaskResponse);
+  rpc UpdateTask (UpdateTaskRequest) returns (TaskResponse);
+  rpc DeleteTask (DeleteTaskRequest) returns (BooleanResponse);
+  rpc GetAllTasks (GetAllTasksRequest) returns (GetAllTasksResponse);
 }
