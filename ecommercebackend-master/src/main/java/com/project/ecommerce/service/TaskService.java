@@ -25,6 +25,7 @@ public class TaskService {
     }
 
     public Task addTask(Task task) {
+        task.setId(tasks.size() + 1L);
         tasks.add(task);
         return task;
     }
