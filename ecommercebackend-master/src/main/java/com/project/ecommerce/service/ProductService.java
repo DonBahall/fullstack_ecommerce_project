@@ -1,6 +1,5 @@
 package com.project.ecommerce.service;
 
-import com.project.ecommerce.entity.Task;
 import com.project.ecommerce.exceptions.ProductNotFoundException;
 import com.project.ecommerce.entity.Product;
 import lombok.Getter;
@@ -17,38 +16,6 @@ public class ProductService {
         add(new Product(1L, "Laptop", "Gaming laptop", 1200, "Electronics", new Date()));
         add(new Product(2L, "Headphones", "Noise-cancelling headphones", 200, "Accessories", new Date()));
     }};
-    @Getter
-    List<Task> tasks = new ArrayList<>() {{
-        add(new Task(1L, "Learn Vue.js", true));
-        add(new Task(2L, "Build a TODO App", false));
-    }};
-
-
-    public Task getTask(Long id) {
-        return tasks.stream()
-                .filter(product -> product.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() ->
-                        new ProductNotFoundException("Product by id " + id + " was not found."));
-    }
-
-    public Task addTask(Task task) {
-        tasks.add(task);
-        return task;
-    }
-
-    public Task updateTask(Long id, Task task) {
-        Task existingTask = getTask(id);
-        if(task.getTitle() != null)   existingTask.setTitle(task.getTitle());
-        if(task.getCompleted() != null)    existingTask.setCompleted(task.getCompleted());
-        return existingTask;
-    }
-
-    public Boolean deleteTask(Long id) {
-        Task task = getTask(id);
-        tasks.remove(task);
-        return true;
-    }
 
     public Product getProduct(Long id) {
         return products.stream()
