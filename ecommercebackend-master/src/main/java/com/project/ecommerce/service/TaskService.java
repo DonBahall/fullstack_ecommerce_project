@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -13,8 +14,8 @@ import java.util.List;
 public class TaskService {
     @Getter
     List<Task> tasks = new ArrayList<>() {{
-        add(new Task(1L, "Learn Vue.js", true));
-        add(new Task(2L, "Build a TODO App", false));
+        add(new Task(1L, "Learn Vue.js",true, new Date()));
+        add(new Task(2L, "Build a TODO App", false, new Date()));
     }};
     public Task getTask(Long id) {
         return tasks.stream()
@@ -34,6 +35,7 @@ public class TaskService {
         Task existingTask = getTask(id);
         if(task.getTitle() != null)   existingTask.setTitle(task.getTitle());
         if(task.getCompleted() != null)    existingTask.setCompleted(task.getCompleted());
+        if(task.getDeadline() != null)    existingTask.setDeadline(task.getDeadline());
         return existingTask;
     }
 
