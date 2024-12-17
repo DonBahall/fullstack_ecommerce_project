@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -14,9 +15,10 @@ import java.util.List;
 public class TaskService {
     @Getter
     List<Task> tasks = new ArrayList<>() {{
-        add(new Task(1L, "Learn Vue.js",true, new Date()));
-        add(new Task(2L, "Build a TODO App", false, new Date()));
+        add(new Task(1L, "Learn Vue.js",true, new Date(2024, Calendar.DECEMBER, 21)));
+        add(new Task(2L, "Build a TODO App", false, new Date(2024, Calendar.DECEMBER, 22)));
     }};
+
     public Task getTask(Long id) {
         return tasks.stream()
                 .filter(product -> product.getId().equals(id))
@@ -44,6 +46,7 @@ public class TaskService {
         tasks.remove(task);
         return true;
     }
+
     public static com.project.ecommerce.service.Task mapToProtobuf(com.project.ecommerce.entity.Task task) {
         return com.project.ecommerce.service.Task.newBuilder().setId(task.getId())
                 .setTitle(task.getTitle())
