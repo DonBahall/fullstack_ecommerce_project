@@ -2,7 +2,9 @@ package com.project.ecommerce.service;
 
 import com.project.ecommerce.entity.Task;
 import com.project.ecommerce.exceptions.TaskNotFoundException;
+import com.project.ecommerce.repository.TaskRepository;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,45 +15,40 @@ import java.util.List;
 @Getter
 @Service
 public class TaskService {
-    @Getter
-    List<Task> tasks = new ArrayList<>() {{
-        add(new Task(1L, "Learn Vue.js",true, new Date(2024, Calendar.DECEMBER, 21)));
-        add(new Task(2L, "Build a TODO App", false, new Date(2024, Calendar.DECEMBER, 22)));
-    }};
+    @Autowired
+    private TaskRepository taskRepository;
 
     public Task getTask(Long id) {
-        return tasks.stream()
-                .filter(product -> product.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() ->
-                        new TaskNotFoundException("Product by id " + id + " was not found."));
+        return taskRepository.findById(id).orElse(null);
+    }
+
+    public List<Task> getTasks() {
+        return taskRepository.findAll();
     }
 
     public Task addTask(Task task) {
-        task.setId(tasks.size() + 1L);
-        tasks.add(task);
-        return task;
+        return taskRepository.save(task);
     }
 
     public Task updateTask(Long id, Task task) {
-        Task existingTask = getTask(id);
+        Task existingTask = taskRepository.findById(id).orElse(null);
         if(task.getTitle() != null)   existingTask.setTitle(task.getTitle());
         if(task.getCompleted() != null)    existingTask.setCompleted(task.getCompleted());
         if(task.getDeadline() != null)    existingTask.setDeadline(task.getDeadline());
-        return existingTask;
+        return taskRepository.save(existingTask);
     }
 
     public Boolean deleteTask(Long id) {
-        Task task = getTask(id);
-        tasks.remove(task);
+        taskRepository.deleteById(id);
         return true;
     }
 
     public static com.project.ecommerce.service.Task mapToProtobuf(com.project.ecommerce.entity.Task task) {
+        boolean isDeadline = task.getDeadline() != null;
         return com.project.ecommerce.service.Task.newBuilder().setId(task.getId())
                 .setTitle(task.getTitle())
                 .setCompleted(task.getCompleted())
-                .setDeadline(task.getDeadline().toString())
+                .setDeadline(isDeadline ? task.getDeadline().toString() : "")
                 .build();
     }
 }

@@ -59,7 +59,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
     }
 
     public void sendDeadlineNotification() {
-        String message = "Deadline on nearest task: " + generateTaskContent();
+        String message = generateTaskContent();
 
         synchronized (sessions) {
             System.out.println("Active sessions before send: " + sessions.size());
@@ -67,7 +67,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
             for (WebSocketSession session : sessions) {
                 if (session.isOpen()) {
                     try {
-                        if(!taskService.tasks.isEmpty()){
+                        if(!taskService.getTasks().isEmpty()){
                             session.sendMessage(new TextMessage(message));
                             System.out.println("Message sent to session: " + session.getId());
                         }
@@ -92,7 +92,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
         if (nearestTask.isPresent()) {
             Task task = nearestTask.get();
-            return "Task: " + task.getTitle() + ", Deadline: " + formatDate(task.getDeadline());
+            return "Deadline on nearest task: Task: " + task.getTitle() + ", Deadline: " + formatDate(task.getDeadline());
         } else {
             return null;
         }
