@@ -23,6 +23,7 @@ public class ServiceV3 extends TaskServiceGrpc.TaskServiceImplBase{
         GetAllTasksResponse response = GetAllTasksResponse.newBuilder()
                 .addAllTasks(protobufTasks)
                 .build();
+        log.info("Get All Task GRPC method completed. Response: " + response);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
@@ -39,6 +40,7 @@ public class ServiceV3 extends TaskServiceGrpc.TaskServiceImplBase{
         TaskResponse response = TaskResponse.newBuilder()
                 .setTask(grpcTask)
                 .build();
+        log.info("Get Task GRPC method completed. Response: " + response);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
@@ -48,27 +50,29 @@ public class ServiceV3 extends TaskServiceGrpc.TaskServiceImplBase{
     }
     @Override
     public void addTask(AddTaskRequest request, StreamObserver<TaskResponse> responseObserver) {
-        log.info("Add Task GRPC method called ");
+        log.info("Add Task GRPC method called. Request: task = " + request.getTask());
         productService.addTask(productToEntity(request.getTask()));
         TaskResponse response = TaskResponse.newBuilder()
                 .setTask(request.getTask())
                 .build();
+        log.info("Add Task GRPC method completed. Response: " + response);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
     @Override
     public void updateTask(UpdateTaskRequest request, StreamObserver<TaskResponse> responseObserver) {
-        log.info("Update Task GRPC method called ");
+        log.info("Update Task GRPC method called. Request: task = " + request.getTask() + ", id = " + request.getId());
         productService.updateTask(request.getId(), productToEntity(request.getTask()));
         TaskResponse response = TaskResponse.newBuilder()
                 .setTask(request.getTask())
                 .build();
+        log.info("Update Task GRPC method completed. Response: " + response);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
     @Override
     public void deleteTask(DeleteTaskRequest request, StreamObserver<BooleanResponse> responseObserver) {
-        log.info("Delete Task GRPC method called ");
+        log.info("Delete Task GRPC method called. Request: id = " + request.getId());
         productService.deleteTask(request.getId());
         responseObserver.onNext(BooleanResponse.newBuilder().setResp(true).build());
         responseObserver.onCompleted();

@@ -25,27 +25,28 @@ public class GraphQLResolver {
 
     @QueryMapping
     public Task getTask(@Argument Long id) {
-        log.info("Get Product Graphql method called ");
+        log.info("Get Task GRPC method called. Request: " + id + " Responce: " + taskservice.getTask(id));
         return taskservice.getTask(id);
     }
     @QueryMapping
     public List<Task> getAllTasks() {
-        log.info("Get All Products Graphql method called ");
+        log.info("Get All Tasks Graphql method called ");
         return taskservice.getTasks();
     }
     @MutationMapping
     public Task addTask(@Argument Task product) {
-        log.info("Add Product Graphql method called ");
+        log.info("Add Task GRPC method called. Request: " + product + " Responce: " + product);
         return taskservice.addTask(product);
     }
     @MutationMapping
     public Task updateTask(@Argument Long id, @Argument Task product) {
-        log.info("Update Product Graphql method called ");
-        return taskservice.updateTask(id,product);
+        Task task = taskservice.updateTask(id, product);
+        log.info("Update Task Graphql method called. Request: task = " + product + ", id= " + id + " Responce: " + task);
+        return task;
     }
     @MutationMapping
     public Boolean deleteTask(@Argument Long id) {
-        log.info("Delete Product Graphql method called ");
+        log.info("Delete Task Graphql method called. Request: " + id);
         taskservice.deleteTask(id);
         return true;
     }
