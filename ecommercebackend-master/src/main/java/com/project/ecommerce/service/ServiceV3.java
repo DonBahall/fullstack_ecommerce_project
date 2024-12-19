@@ -1,5 +1,8 @@
 package com.project.ecommerce.service;
-
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -36,7 +39,7 @@ public class ServiceV3 extends TaskServiceGrpc.TaskServiceImplBase{
                 .setTitle(responseTask.getTitle())
                 .setCompleted(responseTask.getCompleted())
                 .build();
-        if (responseTask.getDeadline()!= null) grpcTask.toBuilder().setDeadline(responseTask.getDeadline().toString()).build();
+        if (responseTask.getDeadline()!= null) grpcTask = grpcTask.toBuilder().setDeadline(responseTask.getDeadline().toString()).build();
         TaskResponse response = TaskResponse.newBuilder()
                 .setTask(grpcTask)
                 .build();
@@ -46,15 +49,19 @@ public class ServiceV3 extends TaskServiceGrpc.TaskServiceImplBase{
     }
     private com.project.ecommerce.entity.Task productToEntity(Task task){
         Date date = null;
-        if(task.getDeadline() != null && !task.getDeadline().isEmpty())  date = Date.from(Instant.parse(task.getDeadline()));
+        if(task.getDeadline() != null && !task.getDeadline().isEmpty()){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+            ZonedDateTime zonedDateTime = ZonedDateTime.parse(task.getDeadline(), formatter);
+            Instant instant = zonedDateTime.toInstant();
+            date = Date.from(instant);
+        }
         return new com.project.ecommerce.entity.Task(task.getId(), task.getTitle(), task.getCompleted(),
                 date);
     }
     @Override
     public void addTask(AddTaskRequest request, StreamObserver<TaskResponse> responseObserver) {
-        log.info("Add Task GRPC method called. Request: task = " + request.getTask());
+        log.info("Add Task GRPC method called. Request: task { " + request.getTask() + "}");
         com.project.ecommerce.entity.Task savedTask = productService.addTask(productToEntity(request.getTask()));
-
         TaskResponse response = TaskResponse.newBuilder()
                 .setTask(entityToTask(savedTask))
                 .build();
@@ -67,6 +74,7 @@ public class ServiceV3 extends TaskServiceGrpc.TaskServiceImplBase{
                 .setId(taskEntity.getId())
                 .setTitle(taskEntity.getTitle())
                 .setCompleted(taskEntity.getCompleted())
+                .setDeadline(taskEntity.getDeadline().toString())
                 .build();
     }
     @Override

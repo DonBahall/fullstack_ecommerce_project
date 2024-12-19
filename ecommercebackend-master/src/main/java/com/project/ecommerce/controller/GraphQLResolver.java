@@ -25,7 +25,7 @@ public class GraphQLResolver {
 
     @QueryMapping
     public Task getTask(@Argument Long id) {
-        log.info("Get Task GRPC method called. Request: " + id + " Responce: " + taskservice.getTask(id));
+        log.info("Get Task Graphql method called. Request: " + id + " Responce: " + taskservice.getTask(id));
         return taskservice.getTask(id);
     }
     @QueryMapping
@@ -35,7 +35,7 @@ public class GraphQLResolver {
     }
     @MutationMapping
     public Task addTask(@Argument Task product) {
-        log.info("Add Task GRPC method called. Request: " + product + " Responce: " + product);
+        log.info("Add Task Graphql method called. Request: " + product + " Responce: " + product);
         return taskservice.addTask(product);
     }
     @MutationMapping
