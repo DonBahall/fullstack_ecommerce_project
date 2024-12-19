@@ -35,8 +35,8 @@ public class ServiceV3 extends TaskServiceGrpc.TaskServiceImplBase{
                 .setId(responseTask.getId())
                 .setTitle(responseTask.getTitle())
                 .setCompleted(responseTask.getCompleted())
-                .setDeadline(responseTask.getDeadline().toString())
                 .build();
+        if (responseTask.getDeadline()!= null) grpcTask.toBuilder().setDeadline(responseTask.getDeadline().toString()).build();
         TaskResponse response = TaskResponse.newBuilder()
                 .setTask(grpcTask)
                 .build();
@@ -45,19 +45,29 @@ public class ServiceV3 extends TaskServiceGrpc.TaskServiceImplBase{
         responseObserver.onCompleted();
     }
     private com.project.ecommerce.entity.Task productToEntity(Task task){
+        Date date = null;
+        if(task.getDeadline() != null && !task.getDeadline().isEmpty())  date = Date.from(Instant.parse(task.getDeadline()));
         return new com.project.ecommerce.entity.Task(task.getId(), task.getTitle(), task.getCompleted(),
-                Date.from(Instant.now()));
+                date);
     }
     @Override
     public void addTask(AddTaskRequest request, StreamObserver<TaskResponse> responseObserver) {
         log.info("Add Task GRPC method called. Request: task = " + request.getTask());
-        productService.addTask(productToEntity(request.getTask()));
+        com.project.ecommerce.entity.Task savedTask = productService.addTask(productToEntity(request.getTask()));
+
         TaskResponse response = TaskResponse.newBuilder()
-                .setTask(request.getTask())
+                .setTask(entityToTask(savedTask))
                 .build();
         log.info("Add Task GRPC method completed. Response: " + response);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
+    }
+    private Task entityToTask(com.project.ecommerce.entity.Task taskEntity) {
+        return Task.newBuilder()
+                .setId(taskEntity.getId())
+                .setTitle(taskEntity.getTitle())
+                .setCompleted(taskEntity.getCompleted())
+                .build();
     }
     @Override
     public void updateTask(UpdateTaskRequest request, StreamObserver<TaskResponse> responseObserver) {
